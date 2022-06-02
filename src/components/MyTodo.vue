@@ -3,7 +3,7 @@
     <ul>
       <li>{{ myMsg }}</li>
     </ul>
-    <button @click="remote">按钮</button>
+    <el-button @click="remote">Default</el-button>
   </div>
 </template>
 
