@@ -21,7 +21,7 @@ export default {
   methods: {
     remote: function () {
       this.$axios
-        .get("/school/remote")
+        .get("/remote")
         .then((res) => {
           if (res.code == 200) {
             this.myMsg = res.result;
