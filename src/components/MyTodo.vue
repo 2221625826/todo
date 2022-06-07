@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul>
-      <li>{{ myMsg }}</li>
+      <li v-for="item in list" :key="item">{{ item.title }} 是 {{ item.desc }}</li>
     </ul>
-    <el-button @click="remote">Default</el-button>
+    <el-button class="but" @click="listAllItem">Default</el-button>
   </div>
 </template>
 
@@ -15,18 +15,16 @@ export default {
   },
   data() {
     return {
-      myMsg: "local",
+      list: [],
     };
   },
   methods: {
-    remote: function () {
-      this.$axios
-        .get("/remote")
-        .then((res) => {
-          if (res.code == 200) {
-            this.myMsg = res.result;
-          }
-        });
+    listAllItem: function () {
+      this.$axios.get("/getAll").then((res) => {
+        if (res.code == 200) {
+          this.list = res.result;
+        }
+      });
     },
   },
 };
@@ -34,4 +32,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+li {
+  margin-left: 50px;
+}
+.but{
+  margin-left:80px;
+}
 </style>
