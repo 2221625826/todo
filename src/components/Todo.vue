@@ -3,7 +3,7 @@
     <ul>
       <li v-for="item in list" :key="item">
         <strong :style="{ color: priorityColor(item.priority) }">
-          ({{ priority(item.priority) }})
+          {{ priority(item.priority) }}
         </strong>
         {{ item.title }}
         <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
@@ -12,7 +12,7 @@
       </li>
     </ul>
     <footer>
-      <el-button class="button" @click="listAllItem">Default</el-button>
+      <el-button class="button" @click="listAllItem">footer</el-button>
     </footer>
   </div>
 </template>
@@ -36,19 +36,20 @@ export default {
         }
       });
     },
+
   },
   computed: {
     priority() {
       return (i) => {
         switch (i) {
           case 0:
-            return "A";
+            return "(A)";
           case 1:
-            return "B";
+            return "(B)";
           case 2:
-            return "C";
+            return "(C)";
           case 3:
-            return "D";
+            return "(D)";
           default:
             return "";
         }

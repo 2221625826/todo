@@ -7,6 +7,9 @@
       <el-menu-item index="2">
         <el-icon><Finished /></el-icon>
       </el-menu-item>
+      <el-menu-item @click="this.$parent.showSwitch" index="3">
+        <el-icon><Plus /></el-icon>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
