@@ -36,7 +36,6 @@
 
 <script>
 import { reactive, ref } from "vue";
-import qs from 'qs';
 export default {
   name: "AddTable",
   props: {
@@ -60,7 +59,7 @@ export default {
   methods: {
     submit: function () {
       console.log(this.form)
-      this.$axios.post("/addTask", qs.stringify(this.form)).then((res) => {
+      this.$axios.post("/addTask", this.form).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("添加失败")
         }

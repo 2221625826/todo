@@ -1,18 +1,22 @@
 <template>
   <div>
-    <ul>
-      <li v-for="item in list" :key="item">
-        <strong :style="{ color: priorityColor(item.priority) }">
-          {{ priority(item.priority) }}
-        </strong>
-        {{ item.title }}
-        <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
-          tag
-        }}</el-tag>
-      </li>
-    </ul>
+    <header></header>
+    <el-collapse accordion class="list">
+      <el-collapse-item v-for="item in list" :key="item">
+        <template #title>
+          <strong :style="{ color: priorityColor(item.priority) }">
+            {{ priority(item.priority) }}
+          </strong>
+          &nbsp;  {{ item.title }}
+          <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
+            tag
+          }}</el-tag>
+        </template>
+        <div>详细内容：{{ item.desc }}</div>
+      </el-collapse-item>
+    </el-collapse>
     <footer>
-      <el-button class="button" @click="listAllItem">footer</el-button>
+      <el-button class="button" @click="listAllItem">刷新</el-button>
     </footer>
   </div>
 </template>
@@ -25,7 +29,14 @@ export default {
   },
   data() {
     return {
-      list: [{ priority: 0, title: "this is a title", tags: ["tag1", "tag2"] }],
+      list: [
+        {
+          priority: 0,
+          title: "this is a title",
+          tags: ["tag1", "tag2"],
+          desc: "desc safasd",
+        },
+      ],
     };
   },
   methods: {
@@ -36,7 +47,6 @@ export default {
         }
       });
     },
-
   },
   computed: {
     priority() {
@@ -77,7 +87,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-ul {
+.list {
   padding-left: 100px;
 }
 .button {
@@ -85,6 +95,11 @@ ul {
 }
 .tag {
   margin: 5px;
+}
+
+header {
+  background-color: aquamarine;
+  height: 60px;
 }
 
 footer {

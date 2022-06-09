@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 axios.defaults.baseURL = '/api' //此路径为配置代理服务器时的代理路径
 
 export default {
@@ -15,7 +16,7 @@ export default {
     },
     post(url, data) {
         return new Promise((resolve, reject) => {
-            axios.post(url, data).then(response => {
+            axios.post(url, qs.stringify(data)).then(response => {
                 resolve(response.data);
             }).catch(err => {
                 reject(err);

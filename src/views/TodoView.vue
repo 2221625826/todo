@@ -32,9 +32,14 @@ export default {
 };
 </script>
 <style scoped>
+.todo{
+  height: 100%;
+  width: 100%
+}
 .menu {
+  display:table;
   width: 70px;
-  min-height: 400px;
+  height: 100%;
   float: left;
 }
 Mytodo {
