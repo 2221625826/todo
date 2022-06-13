@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-menu class="menu">
-      <el-menu-item index="1">
+      <el-menu-item index="1" @click="this.$parent.changePage('Todo')">
         <el-icon><Flag /></el-icon>
       </el-menu-item>
-      <el-menu-item index="2">
+      <el-menu-item index="2" @click="this.$parent.changePage('Done')">
         <el-icon><Finished /></el-icon>
       </el-menu-item>
-      <el-menu-item @click="this.$parent.showSwitch" index="3">
+      <el-menu-item @click="this.$parent.showAddTable" index="3">
         <el-icon><Plus /></el-icon>
       </el-menu-item>
     </el-menu>

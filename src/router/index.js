@@ -1,13 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import TodoView from '../views/TodoView.vue'
 
 const routes = [{
-        path: '/home',
-        name: 'home',
-        component: HomeView
-    },
-    {
         path: '/about',
         name: 'about',
         // route level code-splitting
@@ -18,11 +12,11 @@ const routes = [{
     },
     {
         path: '/',
-        name: 'todo',
+        name: 'home',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: TodoView
+        component: HomeView
     }
 ]
 

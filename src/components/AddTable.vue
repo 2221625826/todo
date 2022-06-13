@@ -14,7 +14,7 @@
           <el-input v-model="form.title" />
         </el-form-item>
         <el-form-item label="tags">
-          <el-select v-model="form.tags" multiple>
+          <el-select v-model="form.tags" multiple placeholder="选择任务的标签">
             <el-option
               v-for="tag in tags"
               :key="tag"
@@ -23,10 +23,13 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="desc">
+          <el-input v-model="form.desc" type="textarea" :autosize="{ minRows: 2, maxRows: 4 }"/>
+        </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="this.$parent.showSwitch">取消</el-button>
+          <el-button @click="this.$parent.showAddTable">取消</el-button>
           <el-button @click="submit">确认</el-button>
         </span>
       </template>
@@ -45,7 +48,7 @@ export default {
   data() {
     return {
       form: reactive({
-        priority: 3,
+        priority: "",
         title: "",
         desc: "",
         tags: [],
@@ -58,13 +61,12 @@ export default {
   },
   methods: {
     submit: function () {
-      console.log(this.form)
       this.$axios.post("/addTask", this.form).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("添加失败")
         }
       });
-      this.$parent.showSwitch();
+      this.$parent.showAddTable();
     },
   },
 };

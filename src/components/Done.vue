@@ -14,7 +14,7 @@
           <el-button class="finish" type="success" circle>
             <el-icon><Check /></el-icon>
           </el-button>
-          <div class="completeTime">截止到 {{ item.completeTime }}</div>
+          <div class="completeTime">完成于 {{ item.completeTime }}</div>
         </template>
         <div>详细内容：{{ item.desc }}</div>
       </el-collapse-item>
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "Todo",
+  name: "Done",
   props: {
     msg: String,
   },
