@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <Menu class="menu"></Menu>
-    <component :is="listName"></component>
+    <component :is="listName" ref="list"></component>
     <AddTable :dialogFormVisible="isShow"></AddTable>
   </div>
 </template>
@@ -33,17 +33,17 @@ export default {
     },
     changePage(pageName) {
       this.listName = pageName;
-    }
+    },
   },
 };
 </script>
 <style scoped>
-.todo{
+.todo {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 .menu {
-  display:table;
+  display: table;
   width: 70px;
   height: 100%;
   float: left;

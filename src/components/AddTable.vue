@@ -54,7 +54,7 @@ export default {
         tags: [],
         topic: "",
         status: 0,
-        completeTime: -1,
+        completeTime: "",
       }),
       tags: ["tag1", "tag2"],
     };
@@ -64,6 +64,8 @@ export default {
       this.$axios.post("/addTask", this.form).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("添加失败")
+        } else {
+          location.reload();
         }
       });
       this.$parent.showAddTable();

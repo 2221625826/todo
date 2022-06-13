@@ -2,7 +2,7 @@
   <div>
     <el-menu class="menu">
       <el-menu-item index="1" @click="this.$parent.changePage('Todo')">
-        <el-icon><Flag /></el-icon>
+        <el-icon><List /></el-icon>
       </el-menu-item>
       <el-menu-item index="2" @click="this.$parent.changePage('Done')">
         <el-icon><Finished /></el-icon>

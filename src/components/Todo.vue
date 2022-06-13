@@ -11,16 +11,26 @@
           <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
             tag
           }}</el-tag>
-          <el-button class="finish" type="success" circle>
-            <el-icon><Check /></el-icon>
+          <el-button
+            class="doTask"
+            :type="doTaskType(item.status)"
+            circle
+            @click="doTask(item.id, item.status)"
+          >
+            <el-icon>
+              <Select v-if="item.status == 1"></Select>
+              <Tickets v-else />
+            </el-icon>
           </el-button>
-          <div class="completeTime">截止到 {{ item.completeTime }}</div>
+          <div class="completeTime" v-if="item.completeTime == ''">
+            截止到 {{ item.completeTime }}
+          </div>
         </template>
         <div>详细内容：{{ item.desc }}</div>
       </el-collapse-item>
     </el-collapse>
     <footer>
-      <el-button class="button" @click="listAllItem">刷新</el-button>
+      <el-button class="button" @click="listTodo">获取Todo</el-button>
     </footer>
   </div>
 </template>
@@ -33,27 +43,35 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          id: -1,
-          priority: 0,
-          title: "this is a title",
-          tags: ["tag1", "tag2"],
-          desc: "desc safasd",
-          topic: "",
-          status: 0,
-          completeTime: 0,
-        },
-      ],
+      list: [],
     };
   },
   methods: {
-    listAllItem: function () {
-      this.$axios.get("/getAll").then((res) => {
+    listTodo: function () {
+      this.$axios.get("/getTodo").then((res) => {
         if (res.code == 200) {
           this.list = res.result;
         }
       });
+    },
+    doTask: function (id, status) {
+      if (status == 0) {
+        this.$axios.get("/doTask", {"id":id}).then((res) => {
+          if (res.code != 200) {
+            alert("请重试！");
+          } else {
+            this.listTodo();
+          }
+        });
+      } else if (status == 1) {
+        this.$axios.get("/finishTask", {"id":id}).then((res) => {
+          if (res.code != 200) {
+            alert("请重试！");
+          } else {
+            this.listTodo();
+          }
+        });
+      }
     },
   },
   computed: {
@@ -89,6 +107,19 @@ export default {
         }
       };
     },
+    doTaskType() {
+      return (i) => {
+        switch (i) {
+          case 1:
+            return "success";
+          default:
+            return "primary";
+        }
+      };
+    },
+  },
+  mounted() {
+    this.listTodo();
   },
 };
 </script>
@@ -99,7 +130,7 @@ export default {
   position: absolute;
   right: 90px;
 }
-.finish {
+.doTask {
   position: absolute;
   right: 40px;
 }

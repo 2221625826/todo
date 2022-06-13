@@ -11,16 +11,13 @@
           <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
             tag
           }}</el-tag>
-          <el-button class="finish" type="success" circle>
-            <el-icon><Check /></el-icon>
-          </el-button>
           <div class="completeTime">完成于 {{ item.completeTime }}</div>
         </template>
         <div>详细内容：{{ item.desc }}</div>
       </el-collapse-item>
     </el-collapse>
     <footer>
-      <el-button class="button" @click="listAllItem">刷新</el-button>
+      <el-button class="button" @click="listDone">获取Done</el-button>
     </footer>
   </div>
 </template>
@@ -34,22 +31,12 @@ export default {
   data() {
     return {
       list: [
-        {
-          id: -1,
-          priority: 0,
-          title: "this is a title",
-          tags: ["tag1", "tag2"],
-          desc: "desc safasd",
-          topic: "",
-          status: 0,
-          completeTime: 0,
-        },
       ],
     };
   },
   methods: {
-    listAllItem: function () {
-      this.$axios.get("/getAll").then((res) => {
+    listDone: function () {
+      this.$axios.get("/getDone").then((res) => {
         if (res.code == 200) {
           this.list = res.result;
         }
@@ -90,6 +77,9 @@ export default {
       };
     },
   },
+  mounted() {
+    this.listDone();
+  },
 };
 </script>
 
@@ -99,14 +89,9 @@ export default {
   position: absolute;
   right: 90px;
 }
-.finish {
-  position: absolute;
-  right: 40px;
-}
 .item {
   padding-left: 20px;
 }
-
 .list {
   padding-left: 70px;
 }
@@ -116,7 +101,6 @@ footer .button {
 .tag {
   margin: 5px;
 }
-
 .header {
   background-color: aquamarine;
   height: 60px;
