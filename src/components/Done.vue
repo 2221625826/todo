@@ -8,12 +8,30 @@
             {{ priority(item.priority) }}
           </strong>
           &nbsp; {{ item.title }}
-          <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
-            tag
-          }}</el-tag>
-          <div class="completeTime">完成于 {{ item.completeTime }}</div>
+          <el-tag v-for="tag in item.tags" :key="tag" class="tag">
+            {{ tag }}
+          </el-tag>
+          <div v-if="item.completeTime != null" class="completeTime">
+            完成于 {{ item.completeTime }}
+          </div>
         </template>
-        <div>详细内容：{{ item.desc }}</div>
+        <div class="desc">
+          详细内容：{{ item.desc }}
+          <el-button
+            class="editTask"
+            type="warning"
+            @click="this.$parent.editTask(item)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            class="deprecatedTask"
+            type="danger"
+            @click="this.deprecatedTask(item.id)"
+          >
+            删除
+          </el-button>
+        </div>
       </el-collapse-item>
     </el-collapse>
     <footer>
@@ -30,8 +48,7 @@ export default {
   },
   data() {
     return {
-      list: [
-      ],
+      list: [],
     };
   },
   methods: {
@@ -39,6 +56,15 @@ export default {
       this.$axios.get("/getDone").then((res) => {
         if (res.code == 200) {
           this.list = res.result;
+        }
+      });
+    },
+    deprecatedTask: function (id) {
+      this.$axios.get("/deprecatedTask", { id: id }).then((res) => {
+        if (res.code != 200) {
+          alert("请重试！");
+        } else {
+          this.listTodo();
         }
       });
     },
@@ -85,6 +111,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.desc {
+  min-height: 100px;
+  position: relative;
+}
+.deprecatedTask {
+  position: absolute;
+  right: 30px;
+  bottom: -10px;
+}
+.editTask {
+  position: absolute;
+  right: 100px;
+  bottom: -10px;
+}
 .completeTime {
   position: absolute;
   right: 90px;

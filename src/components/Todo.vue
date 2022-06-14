@@ -13,9 +13,9 @@
           }}</el-tag>
           <el-button
             class="doTask"
-            :type="doTaskType(item.status)"
+            :type="doOrFinishTaskType(item.status)"
             circle
-            @click="doTask(item.id, item.status)"
+            @click="doOrFinishTask(item.id, item.status)"
           >
             <el-icon>
               <Select v-if="item.status == 1"></Select>
@@ -26,7 +26,16 @@
             截止到 {{ item.completeTime }}
           </div>
         </template>
-        <div>详细内容：{{ item.desc }}</div>
+        <div class="desc">
+          详细内容：{{ item.desc }}
+          <el-button class="editTask" type="warning" @click="this.$parent.editTask(item)">
+            编辑
+          </el-button>
+          <el-button class="deprecatedTask" type="danger" @click="this.deprecatedTask(item.id)">
+            删除
+          </el-button>
+        </div>
+        
       </el-collapse-item>
     </el-collapse>
     <footer>
@@ -44,6 +53,7 @@ export default {
   data() {
     return {
       list: [],
+      isShow: Boolean,
     };
   },
   methods: {
@@ -54,7 +64,7 @@ export default {
         }
       });
     },
-    doTask: function (id, status) {
+    doOrFinishTask: function (id, status) {
       if (status == 0) {
         this.$axios.get("/doTask", {"id":id}).then((res) => {
           if (res.code != 200) {
@@ -73,6 +83,15 @@ export default {
         });
       }
     },
+    deprecatedTask: function (id) {
+      this.$axios.get("/deprecatedTask", {"id":id}).then((res) => {
+          if (res.code != 200) {
+            alert("请重试！");
+          } else {
+            this.listTodo();
+          }
+        });
+    }
   },
   computed: {
     priority() {
@@ -107,7 +126,7 @@ export default {
         }
       };
     },
-    doTaskType() {
+    doOrFinishTaskType() {
       return (i) => {
         switch (i) {
           case 1:
@@ -126,6 +145,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.desc {
+  min-height: 100px;
+  position: relative;
+}
+.deprecatedTask {
+  position: absolute;
+  right: 30px;
+  bottom: -10px;
+}
+.editTask {
+  position: absolute;
+  right: 100px;
+  bottom: -10px;
+}
 .completeTime {
   position: absolute;
   right: 90px;

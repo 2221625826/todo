@@ -7,7 +7,7 @@
       <el-menu-item index="2" @click="this.$parent.changePage('Done')">
         <el-icon><Finished /></el-icon>
       </el-menu-item>
-      <el-menu-item @click="this.$parent.showAddTable" index="3">
+      <el-menu-item @click="this.$parent.addTask()" index="3">
         <el-icon><Plus /></el-icon>
       </el-menu-item>
     </el-menu>

@@ -2,34 +2,62 @@
   <div class="todo">
     <Menu class="menu"></Menu>
     <component :is="listName" ref="list"></component>
-    <AddTable :dialogFormVisible="isShow"></AddTable>
+    <TaskTable :dialogFormVisible="isShow" :url="url" :form="task"></TaskTable>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { ref } from "vue";
+import { reactive,ref } from "vue";
 import Todo from "@/components/Todo.vue";
 import Done from "@/components/Done.vue";
 import Menu from "@/components/Menu.vue";
-import AddTable from "@/components/AddTable.vue";
+import TaskTable from "@/components/TaskTable.vue";
 export default {
   name: "HomeView",
   components: {
     Todo,
     Done,
     Menu,
-    AddTable,
+    TaskTable,
   },
   data() {
     return {
       isShow: ref(false),
       listName: "Todo",
+      url: "",
+      task: reactive({
+        priority: "",
+        title: "",
+        desc: "",
+        tags: [],
+        topic: "",
+        status: 0,
+        completeTime: "",
+      }),
     };
   },
   methods: {
-    showAddTable() {
+    showTable() {
       this.isShow = !this.isShow;
+    },
+    addTask() {
+      this.url = "/addTask";
+      this.task = {
+        priority: "",
+        title: "",
+        desc: "",
+        tags: [],
+        topic: "",
+        status: 0,
+        completeTime: "",
+      };
+      this.showTable();
+    },
+    editTask(task) {
+      this.url = "/editTask";
+      this.task = task;
+      this.showTable();
     },
     changePage(pageName) {
       this.listName = pageName;

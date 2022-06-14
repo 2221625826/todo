@@ -29,7 +29,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="this.$parent.showAddTable">取消</el-button>
+          <el-button @click="cencel">取消</el-button>
           <el-button @click="submit">确认</el-button>
         </span>
       </template>
@@ -38,16 +38,33 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
 export default {
-  name: "AddTable",
+  name: "TaskTable",
   props: {
     msg: String,
-    dialogFormVisible: ref(true),
+    dialogFormVisible: Boolean,
+    url: String,
+    form: Object,
   },
   data() {
     return {
-      form: reactive({
+      tags: ["tag1", "tag2"],
+    };
+  },
+  methods: {
+    submit: function () {
+      this.$axios.post(this.url, this.form).then((res) => {
+        if (res.code != 200 || res.result == false) {
+          alert("操作失败")
+        } else {
+          location.reload();
+        }
+      });
+      this.$parent.showTable();
+    },
+    cencel: function() {
+      this.$parent.showTable();
+      this.form = {
         priority: "",
         title: "",
         desc: "",
@@ -55,21 +72,8 @@ export default {
         topic: "",
         status: 0,
         completeTime: "",
-      }),
-      tags: ["tag1", "tag2"],
-    };
-  },
-  methods: {
-    submit: function () {
-      this.$axios.post("/addTask", this.form).then((res) => {
-        if (res.code != 200 || res.result == false) {
-          alert("添加失败")
-        } else {
-          location.reload();
-        }
-      });
-      this.$parent.showAddTable();
-    },
+      }
+    }
   },
 };
 </script>
