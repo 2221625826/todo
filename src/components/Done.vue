@@ -8,8 +8,8 @@
             {{ priority(item.priority) }}
           </strong>
           &nbsp; {{ item.title }}
-          <el-tag v-for="tag in item.tags" :key="tag" class="tag">
-            {{ tag }}
+          <el-tag v-for="tag in item.tags" :key="tag.id" class="tag">
+            {{ tag.name }}
           </el-tag>
           <div v-if="item.completeTime != null" class="completeTime">
             完成于 {{ item.completeTime }}

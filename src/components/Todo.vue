@@ -8,8 +8,8 @@
             {{ priority(item.priority) }}
           </strong>
           &nbsp; {{ item.title }}
-          <el-tag v-for="tag in item.tags" :key="tag" class="tag">{{
-            tag
+          <el-tag v-for="tag in item.tags" :key="tag.id" class="tag">{{
+            tag.name
           }}</el-tag>
           <el-button
             class="doTask"
@@ -22,7 +22,7 @@
               <Tickets v-else />
             </el-icon>
           </el-button>
-          <div class="completeTime" v-if="item.completeTime == ''">
+          <div class="completeTime" v-if="item.completeTime != ''">
             截止到 {{ item.completeTime }}
           </div>
         </template>

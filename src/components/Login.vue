@@ -29,7 +29,7 @@ export default {
   },
   methods: {
       login: function() {
-        let token =  "";
+        let token =  "22222";
         localStorage.setItem('token', token);
       }
   },
