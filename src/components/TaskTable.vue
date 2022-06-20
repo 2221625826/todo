@@ -14,7 +14,7 @@
           <el-input v-model="form.title" />
         </el-form-item>
         <el-form-item label="tags">
-          <el-select v-model="form.tags" multiple placeholder="选择任务的标签">
+          <el-select v-model="form.tags" value-key="id" multiple placeholder="选择任务的标签">
             <el-option
               v-for="tag in tags"
               :key="tag.id"
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      tags: [{"id": 1, "name":"tag1"},{"id": 2, "name":"tag1"}],
+      tags: [{"id": 9, "name":"tag1"},{"id": 10, "name":"tag2"}],
     };
   },
   methods: {
