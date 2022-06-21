@@ -10,7 +10,7 @@
       <el-menu-item index="3" @click="this.$parent.$parent.$parent.$parent.addTask()">
         <el-icon><Plus /></el-icon>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="4" @click="this.$parent.$parent.$parent.$parent.tags()">
         <el-icon><CollectionTag /></el-icon>
       </el-menu-item>
     </el-menu>
