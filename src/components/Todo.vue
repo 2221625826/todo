@@ -1,6 +1,5 @@
 <template>
   <div>
-    <header class="header"></header>
     <el-collapse accordion class="list">
       <el-collapse-item class="item" v-for="item in list" :key="item">
         <template #title class="title">
@@ -167,23 +166,12 @@ export default {
   position: absolute;
   right: 40px;
 }
-.item {
-  padding-left: 20px;
-}
 
-.list {
-  padding-left: 70px;
-}
 footer .button {
   margin-left: 80px;
 }
 .tag {
   margin: 5px;
-}
-
-.header {
-  background-color: aquamarine;
-  height: 60px;
 }
 
 footer {

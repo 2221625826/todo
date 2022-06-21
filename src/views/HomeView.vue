@@ -1,14 +1,19 @@
 <template>
   <div class="todo">
-    <Menu class="menu"></Menu>
-    <component :is="listName" ref="list"></component>
+    <el-container>
+      <el-header class="header"></el-header>
+      <el-container>
+        <el-aside class="menu"><Menu></Menu></el-aside>
+        <el-main class="main"><component :is="listName" ref="list"></component></el-main>
+      </el-container>
+    </el-container>
     <TaskTable :dialogFormVisible="isShow" :url="url" :form="task"></TaskTable>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { reactive,ref } from "vue";
+import { reactive, ref } from "vue";
 import Todo from "@/components/Todo.vue";
 import Done from "@/components/Done.vue";
 import Menu from "@/components/Menu.vue";
@@ -71,12 +76,17 @@ export default {
   width: 100%;
 }
 .menu {
-  display: table;
   width: 70px;
-  height: 100%;
-  float: left;
 }
 Mytodo {
   float: left;
+}
+.main {
+  padding: 20px;
+}
+
+.header {
+  background-color: aquamarine;
+  height: 60px;
 }
 </style>

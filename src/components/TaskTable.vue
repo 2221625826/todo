@@ -73,7 +73,19 @@ export default {
         status: 0,
         completeTime: "",
       }
+    },
+    getTags: function() {
+      this.$axios.get("/getTags").then((res) => {
+        if (res.code != 200 || res.result == false) {
+          alert("操作失败")
+        } else {
+          this.tags = res.result;
+        }
+      });
     }
+  },
+  mounted() {
+    this.getTags();
   },
 };
 </script>
