@@ -27,7 +27,7 @@
         </template>
         <div class="desc">
           详细内容：{{ item.desc }}
-          <el-button class="editTask" type="warning" @click="this.$parent.editTask(item)">
+          <el-button class="editTask" type="warning" @click="this.$parent.$parent.$parent.$parent.editTask(item)">
             编辑
           </el-button>
           <el-button class="deprecatedTask" type="danger" @click="this.deprecatedTask(item.id)">
@@ -38,7 +38,7 @@
       </el-collapse-item>
     </el-collapse>
     <footer>
-      <el-button class="button" @click="listTodo">获取Todo</el-button>
+      <el-button @click="listTodo">获取Todo</el-button>
     </footer>
   </div>
 </template>
@@ -167,9 +167,6 @@ export default {
   right: 40px;
 }
 
-footer .button {
-  margin-left: 80px;
-}
 .tag {
   margin: 5px;
 }

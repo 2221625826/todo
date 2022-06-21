@@ -34,7 +34,7 @@
       </el-collapse-item>
     </el-collapse>
     <footer>
-      <el-button class="button" @click="listDone">获取Done</el-button>
+      <el-button @click="listDone">获取Done</el-button>
     </footer>
   </div>
 </template>
@@ -127,9 +127,6 @@ export default {
 .completeTime {
   position: absolute;
   right: 90px;
-}
-footer .button {
-  margin-left: 80px;
 }
 .tag {
   margin: 5px;
