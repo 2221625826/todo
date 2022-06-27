@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     listTodo: function () {
-      this.$axios.get("/getTodo").then((res) => {
+      this.$axios.get("/todo/getTodo").then((res) => {
         if (res.code == 200) {
           this.list = res.result;
         }
@@ -65,7 +65,7 @@ export default {
     },
     doOrFinishTask: function (id, status) {
       if (status == 0) {
-        this.$axios.get("/doTask", {"id":id}).then((res) => {
+        this.$axios.get("/todo/doTask", {"id":id}).then((res) => {
           if (res.code != 200) {
             alert("请重试！");
           } else {
@@ -73,7 +73,7 @@ export default {
           }
         });
       } else if (status == 1) {
-        this.$axios.get("/finishTask", {"id":id}).then((res) => {
+        this.$axios.get("/todo/finishTask", {"id":id}).then((res) => {
           if (res.code != 200) {
             alert("请重试！");
           } else {
@@ -83,7 +83,7 @@ export default {
       }
     },
     deprecatedTask: function (id) {
-      this.$axios.get("/deprecatedTask", {"id":id}).then((res) => {
+      this.$axios.get("/todo/deprecatedTask", {"id":id}).then((res) => {
           if (res.code != 200) {
             alert("请重试！");
           } else {

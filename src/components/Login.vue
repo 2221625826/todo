@@ -22,16 +22,22 @@ export default {
   data() {
     return {
       form: reactive({
-          username: "",
-          password: ""
+        username: "",
+        password: "",
       }),
     };
   },
   methods: {
-      login: function() {
-        let token =  "22222";
-        localStorage.setItem('token', token);
-      }
+    login: function () {
+      this.$axios.get("/login/login", this.form).then((res) => {
+        if (res.code != 200) {
+          alert(res.msg);
+        } else {
+          localStorage.setItem("token", res.result);
+          this.$router.push("/home");
+        }
+      });
+    },
   },
 };
 </script>
@@ -39,7 +45,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .loginBtn {
-    display: block;
-    margin: auto;
+  display: block;
+  margin: auto;
 }
 </style>

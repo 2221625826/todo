@@ -59,7 +59,8 @@ export default {
       isShow: ref(false),
       url: String,
       form: reactive({
-        priority: "",
+        id: Number,
+        priority: Number,
         title: "",
         desc: "",
         tags: [],
@@ -75,17 +76,9 @@ export default {
         this.url = url;
       }
       if (task != null) {
-        this.from = task;
+        this.form = task;
       } else {
-        this.from = {
-          priority: "",
-          title: "",
-          desc: "",
-          tags: [],
-          topic: "",
-          status: 0,
-          completeTime: "",
-        };
+        this.clear();
       }
       if (this.isShow == false) {
         this.getTags();
@@ -96,6 +89,7 @@ export default {
       this.$axios.post(this.url, this.form).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("操作失败");
+          this.clear();
         } else {
           location.reload();
         }
@@ -104,7 +98,11 @@ export default {
     },
     cencel: function () {
       this.showTable();
+      this.clear();
+    },
+    clear: function () {
       this.form = {
+        id: 0,
         priority: "",
         title: "",
         desc: "",
@@ -115,13 +113,27 @@ export default {
       };
     },
     getTags: function () {
-      this.$axios.get("/getTags").then((res) => {
-        if (res.code != 200 || res.result == false) {
+      this.$axios.get("/todo/getTags").then((res) => {
+        if (res.code != 200) {
           alert("操作失败");
         } else {
           this.tags = res.result;
         }
       });
+    },
+    priority: function (num) {
+      switch (num) {
+        case 0:
+          return "A";
+        case 1:
+          return "B";
+        case 2:
+          return "C";
+        case 3:
+          return "D";
+        default:
+          return "";
+      }
     },
   },
 };

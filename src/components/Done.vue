@@ -52,14 +52,14 @@ export default {
   },
   methods: {
     listDone: function () {
-      this.$axios.get("/getDone").then((res) => {
+      this.$axios.get("/todo/getDone").then((res) => {
         if (res.code == 200) {
           this.list = res.result;
         }
       });
     },
     deprecatedTask: function (id) {
-      this.$axios.get("/deprecatedTask", { id: id }).then((res) => {
+      this.$axios.get("/todo/deprecatedTask", { id: id }).then((res) => {
         if (res.code != 200) {
           alert("请重试！");
         } else {

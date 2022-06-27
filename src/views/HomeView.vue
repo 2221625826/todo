@@ -37,10 +37,10 @@ export default {
   },
   methods: {
     addTask() {
-      this.$.refs.taskTable.showTable("/addTask", null);
+      this.$.refs.taskTable.showTable("/todo/addTask", null);
     },
     editTask(task) {
-      this.$.refs.taskTable.showTable("/editTask", task);
+      this.$.refs.taskTable.showTable("/todo/editTask", task);
     },
     changePage(pageName) {
       this.listName = pageName;

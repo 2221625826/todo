@@ -37,7 +37,7 @@ export default {
       this.isShow = !this.isShow;
     },
     submit: function () {
-      this.$axios.get("addTag", this.form).then((res) => {
+      this.$axios.get("/todo/addTag", this.form).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("操作失败");
         }
@@ -49,7 +49,7 @@ export default {
       this.form.name = '';
     },
     getTags: function () {
-      this.$axios.get("/getTags").then((res) => {
+      this.$axios.get("/todo/getTags").then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("操作失败");
         } else {
