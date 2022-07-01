@@ -1,7 +1,13 @@
 <template>
   <div>
-    <header>登录页面</header>
-    <Login class="login"></Login>
+    <el-container>
+      <el-header class="header">
+        <h3>登录页面</h3>
+      </el-header>
+      <el-main>
+        <Login class="login" />
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -21,13 +27,13 @@ export default {
 </script>
 <style scoped>
 .login {
-    margin: auto;
-    padding: 200px;
-    width: 300px;
+  margin: auto;
+  padding: 200px;
+  width: 300px;
 }
-header {
-    font-size: 50px;
-    text-align:center;
-    color: gray;
+.header {
+  font-size: 50px;
+  text-align: center;
+  color: gray;
 }
 </style>

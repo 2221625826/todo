@@ -1,15 +1,28 @@
 <template>
   <div>
     <el-dialog v-model="isShow" title="Tags">
-      <el-form :model="form">
+      <el-table :data="this.tags" height="250" style="width: 100%">
+        <el-table-column label="标签名" prop="name">
+          <template #default="scope">
+            <el-input v-if="this.editForm.id == scope.row.id" v-model="this.editForm.name"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template #default="scope">
+            <el-button @click="edit(scope.row)">编辑</el-button>
+            <el-button @click="submitEdit" v-if="this.editForm.id == scope.row.id">确认</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-form :model="addForm">
         <el-form-item label="名称">
-          <el-input v-model="form.name" />
+          <el-input v-model="addForm.name" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="cencel">取消</el-button>
-          <el-button @click="submit">确认</el-button>
+          <el-button @click="submitAdd">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -26,27 +39,46 @@ export default {
   data() {
     return {
       isShow: ref(false),
-      form: reactive({
-        name: ""
+      tags: [],
+      addForm: reactive({
+        name: "",
       }),
-      tags: Array
+      editForm: reactive({
+        id: 0,
+        name: "",
+      }),
     };
   },
   methods: {
     showTable() {
       this.isShow = !this.isShow;
     },
-    submit: function () {
-      this.$axios.get("/todo/addTag", this.form).then((res) => {
+    submitAdd: function () {
+      if(this.addForm.name == "") {
+        return;
+      }
+      this.$axios.get("/todo/addTag", this.addForm).then((res) => {
         if (res.code != 200 || res.result == false) {
           alert("操作失败");
         }
-        this.form.name = '';
+        this.addForm.name = "";
+      });
+    },
+    submitEdit: function () {
+      this.$axios.post("/todo/editTag", this.editForm).then((res) => {
+        if (res.code != 200 || res.result == false) {
+          alert("操作失败");
+        }
+        this.editForm = {id: -1, name: ""};
+        this.getTags();
       });
     },
     cencel: function () {
       this.showTable();
-      this.form.name = '';
+      this.addForm.name = "";
+    },
+    edit: function (tag) {
+      this.editForm = tag;
     },
     getTags: function () {
       this.$axios.get("/todo/getTags").then((res) => {
@@ -57,6 +89,9 @@ export default {
         }
       });
     },
+  },
+  mounted() {
+    this.getTags();
   },
 };
 </script>

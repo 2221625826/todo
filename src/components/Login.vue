@@ -5,9 +5,9 @@
         <el-input v-model="form.username" />
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" show-password />
       </el-form-item>
-      <el-button class="loginBtn" type="primary" @click="login">登录</el-button>
+      <el-button class="loginBtn" type="primary" native-type="submit" @click="login">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
   methods: {
     login: function () {
       this.$axios.get("/login/login", this.form).then((res) => {
-        if (res.code != 200) {
+        if (res.code != 200 || res.result == null) {
+          localStorage.removeItem("token");
           alert(res.msg);
         } else {
           localStorage.setItem("token", res.result);

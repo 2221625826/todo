@@ -59,9 +59,6 @@ export default {
 .menu {
   width: 70px;
 }
-Mytodo {
-  float: left;
-}
 .main {
   padding: 20px;
 }

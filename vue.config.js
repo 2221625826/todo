@@ -2,8 +2,6 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
     transpileDependencies: true,
     publicPath: '/', //基本路径
-    outputDir: 'dist', //打包的包文件名
-    assetsDir: 'static', //css、js、img静态资源存放文件夹
     lintOnSave: false, //是否在保存的时候使用 `eslint-loader` 进行检查。默认true
     runtimeCompiler: false, //是否使用包含运行时编译器的 Vue 构建版本。默认false
     productionSourceMap: false, //生产环境不需要 source map,加速生产环境构建。默认true
