@@ -14,6 +14,7 @@
 
 <script>
 import { reactive } from "vue";
+let Base64 = require('js-base64').Base64;
 export default {
   name: "Login",
   props: {
@@ -29,6 +30,7 @@ export default {
   },
   methods: {
     login: function () {
+      this.form.password = Base64.encode(this.form.password);
       this.$axios.get("/login/login", this.form).then((res) => {
         if (res.code != 200 || res.result == null) {
           localStorage.removeItem("token");
@@ -38,6 +40,7 @@ export default {
           this.$router.push("/home");
         }
       });
+      this.form.password = "";
     },
   },
 };
